@@ -28,10 +28,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    func resetTimer(){
+        hours = 0
+        minutes = 0
+        seconds = 0
+        lappedTimes = []
+        timer.invalidate()
+        secondLabel.text = "00"
+        minuteLabel.text = "00"
+        hourLabel.text = "00"
+        startButton.isHidden = false
+        tableView.reloadData()
+        
+    }
 
     @IBAction func start(_ sender: UIButton) {
         
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
+        startButton.isHidden = true
     }
     @objc fileprivate func count() {
         seconds += 1
@@ -39,7 +54,20 @@ class ViewController: UIViewController {
             minutes += 1
             seconds = 0
         }
+        
+        if minutes == 60 {
+            minutes = 0
+            seconds = 0
+            hours += 1
+        }
+        
+        if hours == 24 {
+            resetTimer()
+        }
         secondLabel.text = "\(seconds)"
+        minuteLabel.text = minutes == 0 ? "00" : "\(minutes)"
+        hourLabel.text = hours == 0 ? "00" : "\(hours)"
+        
     }
     
     
@@ -51,7 +79,14 @@ class ViewController: UIViewController {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
+    @IBAction func pause(_ sender: UIButton) {
+        timer.invalidate()
+        startButton.isHidden = false
+    }
     
+    @IBAction func reset(_ sender: UIButton) {
+        resetTimer()
+    }
     
     
     
@@ -71,6 +106,14 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = lappedTimes[indexPath.row]
         cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            lappedTimes.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 
