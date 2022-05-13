@@ -155,6 +155,7 @@
                     </view>
                     <connections>
                         <outlet property="hourLabel" destination="j4M-Wp-zjb" id="kcm-mw-flb"/>
+                        <outlet property="lapButton" destination="b31-IE-bcy" id="M1w-L0-IuK"/>
                         <outlet property="minuteLabel" destination="j4M-Wp-zjb" id="onB-1b-JbD"/>
                         <outlet property="secondLabel" destination="8O0-LL-iZM" id="fNB-Gz-YCx"/>
                         <outlet property="startButton" destination="khD-GZ-K9G" id="typ-hu-Nc0"/>

@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var lapButton: UIButton!
     
     var hours = 0
     var minutes = 0
@@ -26,6 +27,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lapButton.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -39,6 +41,7 @@ class ViewController: UIViewController {
         minuteLabel.text = "00"
         hourLabel.text = "00"
         startButton.isHidden = false
+        lapButton.isHidden = true
         tableView.reloadData()
         
     }
@@ -47,6 +50,7 @@ class ViewController: UIViewController {
         
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(count), userInfo: nil, repeats: true)
         startButton.isHidden = true
+        lapButton.isHidden = false
     }
     @objc fileprivate func count() {
         seconds += 1
@@ -82,6 +86,7 @@ class ViewController: UIViewController {
     @IBAction func pause(_ sender: UIButton) {
         timer.invalidate()
         startButton.isHidden = false
+        lapButton.isHidden = true
     }
     
     @IBAction func reset(_ sender: UIButton) {
